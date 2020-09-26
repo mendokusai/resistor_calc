@@ -82,6 +82,28 @@ defmodule Resistor.Calc do
     end
   end
 
+  def compute(bands) when length(bands) == 5 do
+    [b1, b2, b3, m, t, ] = Enum.map(bands, &get_code/1)
+
+    with {:ok, band1} <- band(b1),
+         {:ok, band2} <- band(b2),
+         {:ok, band3} <- band(b3),
+         {:ok, multiplier} <- multiplier(m),
+         {:ok, tolerance} <- tolerance(t)
+    do
+      result = compute_five_band(band1, band2, band3, multiplier)
+      {{multiplier_value, range}, m_clr} = multiplier
+      wrap(band1) <>
+      wrap(band2) <>
+      wrap(band3) <>
+      wrap({multiplier_value, m_clr}, range) <>
+      wrap(tolerance, "%") <>
+      wrap({result, :default}, "#{range}Ω")
+    else
+      {:error, msg} -> "Error: #{msg}"
+    end
+  end
+
   defp wrap({value, clr}, ext \\ "") do
     {bkg, clr} = Keyword.get(@color_directions, clr, @default_colors)
     bkg <> clr <> " #{value}#{ext} "
@@ -89,6 +111,12 @@ defmodule Resistor.Calc do
 
   def compute_four_band({b1, _}, {b2, _}, {{mult, _}, _}) do
     value = b1 <> b2 |> String.to_integer
+
+    reduce(value * mult)
+  end
+
+  def compute_five_band({b1, _}, {b2, _}, {b3, _}, {{mult, _}, _}) do
+    value = b1 <> b2 <> b3 |> String.to_integer
 
     reduce(value * mult)
   end
