@@ -1,8 +1,8 @@
 # Resistor
 
-**A CLI resistor too**
+**A CLI resistor tool**
 
-I was tired of plugging in resistor codes into various web form. I wanted to just type them.
+I was tired of plugging in resistor codes into various web page forms. I wanted to just type them, and I mainly wanted to re-remember how to build an Elixir [escript](https://hexdocs.pm/mix/master/Mix.Tasks.Escript.Build.html), and then use `IO.ANSI` color codes to show the band colors in in the command line.
 
 ## Build
 
