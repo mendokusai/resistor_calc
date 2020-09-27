@@ -35,7 +35,7 @@ defmodule Resistor.Calc do
     black: {Color.black_background, Color.white},
     brown: {Color.color_background(2, 1, 0), Color.white},
     red: {Color.color_background(5, 0, 0), Color.white},
-    orange: {Color.color_background(3, 3, 3), Color.white},
+    orange: {Color.color_background(5, 3, 0), Color.black},
     yellow: {Color.yellow_background, Color.black},
     green: {Color.green_background, Color.black},
     blue: {Color.color_background(0, 0, 5), Color.white},
